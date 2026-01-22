@@ -4,16 +4,9 @@
 }
 
 .container {
-  max-width: 1440px;
+  max-width: 1360px;
   margin: 0 auto;
   padding: 0 40px;
-}
-
-.title {
-  font-size: 64px;
-  font-weight: 700;
-  margin-bottom: 40px;
-  color: #282828;
 }
 
 .grid {
@@ -29,20 +22,6 @@
   border-radius: 12px;
   padding: 32px;
   min-height: 150px;
-}
-
-.label {
-  font-size: 20px;
-  color: #8b8b8b;
-
-  margin-bottom: 12px;
-}
-
-.value {
-  font-size: 40px;
-  font-weight: 500;
-  color: #282828;
-  line-height: 1.1;
 }
 
 .socials {

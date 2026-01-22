@@ -1,0 +1,22 @@
+.banner {
+  max-width: 1440px;
+  margin: 0 auto;
+  height: 600px;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+.container {
+  height: 100%;
+  padding: 0 40px;
+}
+
+.content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 40px;
+  padding: 80px 40px 0;
+}
