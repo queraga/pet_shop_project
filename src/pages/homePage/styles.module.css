@@ -20,3 +20,46 @@
   gap: 40px;
   padding: 80px 40px 0;
 }
+
+/* Categories Block */
+
+.categoriesSection {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 40px;
+  margin-top: 80px;
+  margin-bottom: 80px;
+}
+
+.categoriesHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.categoriesGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+
+.categoryCard {
+  text-decoration: none;
+  color: inherit;
+}
+
+.categoryImg {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
+
+.headerLine {
+  flex: 1;
+  height: 1px;
+  background-color: #dddddd;
+  margin-left: 32px;
+}
