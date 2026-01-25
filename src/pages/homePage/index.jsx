@@ -1,16 +1,53 @@
-import { Box, Button, Container, Typography } from "@mui/material";
+import { Box, Button, Container, Typography, TextField } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import styles from "../../pages/homePage/styles.module.css";
 import { useEffect } from "react";
 import { getCategories } from "../../api/endpoints";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import saleBackgroundImg from "../../assets/images/saleBackgroundImg.svg";
 
 import heroBanner from "../../assets/images/heroBanner.svg";
+
+const promoInputSx = {
+  "& .MuiOutlinedInput-root": {
+    height: "58px",
+    borderRadius: "6px",
+    backgroundColor: "transparent",
+    fontSize: 20,
+    fontWeight: 500,
+    color: "#fff",
+  },
+
+  "& .MuiOutlinedInput-notchedOutline": {
+    borderColor: "rgba(255,255,255,0.4)",
+    borderWidth: "2px",
+  },
+
+  "&:hover .MuiOutlinedInput-notchedOutline": {
+    borderColor: "#fff",
+  },
+
+  "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+    borderColor: "#fff",
+    borderWidth: "2px",
+  },
+
+  "& .MuiOutlinedInput-root.Mui-focused": {
+    boxShadow: "none",
+  },
+
+  "& .MuiInputBase-input::placeholder": {
+    color: "rgba(255,255,255,0.8)",
+    opacity: 1,
+  },
+};
 
 const SERVER_URL = "http://localhost:3333";
 
 function HomePage() {
   const [categories, setCategories] = useState([]);
+  const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
     getCategories()
@@ -20,8 +57,18 @@ function HomePage() {
 
   const topCategories = categories.slice(0, 4);
 
+  const { register, handleSubmit, reset } = useForm({
+    defaultValues: { name: "", phone: "", email: "" },
+  });
+
+  const onSubmit = () => {
+    setSubmitted(true);
+    reset();
+  };
+
   return (
     <>
+      {/* HeroBanner */}
       <Box
         className={styles.banner}
         style={{
@@ -109,6 +156,85 @@ function HomePage() {
               </Typography>
             </Box>
           ))}
+        </Box>
+      </Box>
+
+      {/* Form for 5% discount */}
+      <Box className={styles.promoSection}>
+        <Box className={styles.promo}>
+          <Typography
+            className={styles.promoTitle}
+            sx={{
+              fontSize: "64px",
+              color: "#fff",
+              fontWeight: 700,
+            }}
+          >
+            5% off on the first order
+          </Typography>
+          <img
+            src={saleBackgroundImg}
+            alt="Discount"
+            className={styles.backgroundImg}
+          />
+          <Box
+            component="form"
+            onSubmit={handleSubmit(onSubmit)}
+            className={styles.promoForm}
+          >
+            <TextField
+              placeholder="Name"
+              variant="outlined"
+              size="small"
+              {...register("name")}
+              sx={promoInputSx}
+            />
+            <TextField
+              placeholder="Phone number"
+              variant="outlined"
+              size="small"
+              {...register("phone")}
+              sx={promoInputSx}
+            />
+            <TextField
+              placeholder="Email"
+              variant="outlined"
+              size="small"
+              {...register("email")}
+              sx={promoInputSx}
+            />
+            <Button
+              variant="contained"
+              type="submit"
+              sx={{
+                mt: "32px",
+                height: 58,
+                borderRadius: "6px",
+                fontSize: 20,
+                textTransform: "none",
+                backgroundColor: submitted ? "#282828" : "#fff",
+                color: submitted ? "#fff" : "#282828",
+                "&:hover": {
+                  backgroundColor: submitted ? "#222" : "#b7c9f8",
+                },
+              }}
+            >
+              Get a discount
+            </Button>
+            {submitted && (
+              <Typography
+                sx={{
+                  mt: 2,
+                  fontSize: 20,
+                  color: "#fff",
+                  textAlign: "center",
+                  fontWeight: 600,
+                }}
+              >
+                Request Submitted
+              </Typography>
+            )}
+          </Box>
         </Box>
       </Box>
     </>
