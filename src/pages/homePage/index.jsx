@@ -1,14 +1,18 @@
 import { Box, Button, Container, Typography, TextField } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import styles from "../../pages/homePage/styles.module.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getCategories } from "../../api/endpoints";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import saleBackgroundImg from "../../assets/images/saleBackgroundImg.svg";
+import { pickRandom } from "../../utils/random";
+import { getProducts } from "../../api/endpoints";
 
 import heroBanner from "../../assets/images/heroBanner.svg";
+import CategoryCard from "../../components/category/categoryCard";
+import ProductCard from "../../components/product/productCard";
 
+// form adjustments material UI
 const promoInputSx = {
   "& .MuiOutlinedInput-root": {
     height: "58px",
@@ -20,7 +24,7 @@ const promoInputSx = {
   },
 
   "& .MuiOutlinedInput-notchedOutline": {
-    borderColor: "rgba(255,255,255,0.4)",
+    borderColor: "rgba(255,255,255,0.8)",
     borderWidth: "2px",
   },
 
@@ -46,16 +50,30 @@ const promoInputSx = {
 const SERVER_URL = "http://localhost:3333";
 
 function HomePage() {
-  const [categories, setCategories] = useState([]);
+  const [randomCategories, setRandomCategories] = useState([]);
+
   const [submitted, setSubmitted] = useState(false);
+
+  const [randomSale, setRandomSale] = useState([]);
 
   useEffect(() => {
     getCategories()
-      .then((res) => setCategories(res.data))
+      .then((res) => {
+        setRandomCategories(pickRandom(res.data, 4));
+      })
       .catch((err) => console.log("categories error:", err));
   }, []);
 
-  const topCategories = categories.slice(0, 4);
+  useEffect(() => {
+    getProducts()
+      .then((res) => {
+        const discounted = res.data.filter(
+          (p) => p.discont_price !== null && p.discont_price < p.price,
+        );
+        setRandomSale(pickRandom(discounted, 4));
+      })
+      .catch((err) => console.log("products error:", err));
+  }, []);
 
   const { register, handleSubmit, reset } = useForm({
     defaultValues: { name: "", phone: "", email: "" },
@@ -95,6 +113,7 @@ function HomePage() {
               variant="contained"
               sx={{
                 alignSelf: "flex-start",
+                background: "#0D50FF",
                 width: 218,
                 height: 58,
                 borderRadius: "6px",
@@ -139,22 +158,13 @@ function HomePage() {
         </Box>
 
         <Box className={styles.categoriesGrid}>
-          {topCategories.map((cat) => (
-            <Box
+          {randomCategories.map((cat) => (
+            <CategoryCard
               key={cat.id}
-              component={NavLink}
-              to={`/categories/${cat.id}`}
-              className={styles.categoryCard}
-            >
-              <img
-                src={`http://localhost:3333${cat.image}`}
-                alt={cat.title}
-                className={styles.categoryImg}
-              />
-              <Typography sx={{ mt: 2, fontSize: 20, color: "#282828" }}>
-                {cat.title}
-              </Typography>
-            </Box>
+              id={cat.id}
+              title={cat.title}
+              image={cat.image}
+            />
           ))}
         </Box>
       </Box>
@@ -235,6 +245,41 @@ function HomePage() {
               </Typography>
             )}
           </Box>
+        </Box>
+      </Box>
+      {/* Sale Block with 4 product card from sale */}
+      <Box className={styles.saleSection}>
+        <Box className={styles.saleHeader}>
+          <Typography sx={{ fontSize: 64, fontWeight: 700, color: "#282828" }}>
+            Sale
+          </Typography>
+
+          <Box className={styles.headerLine} />
+
+          <Button
+            component={NavLink}
+            to="/sales"
+            variant="outlined"
+            size="small"
+            sx={{
+              textTransform: "none",
+              borderRadius: "8px",
+              color: "#8B8B8B",
+              borderColor: "#DDDDDD",
+              "&:hover": {
+                borderColor: "#8B8B8B",
+                backgroundColor: "transparent",
+              },
+            }}
+          >
+            All sales
+          </Button>
+        </Box>
+
+        <Box className={styles.saleGrid}>
+          {randomSale.map((p) => (
+            <ProductCard key={p.id} product={p} />
+          ))}
         </Box>
       </Box>
     </>
