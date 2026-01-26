@@ -10,6 +10,7 @@ function CategoryCard({ id, title, image }) {
         alt={title}
         className={styles.img}
       />
+
       <Typography
         sx={{
           mt: 2,
