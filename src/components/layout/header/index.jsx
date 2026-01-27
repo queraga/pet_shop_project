@@ -3,10 +3,14 @@ import { AppBar, Toolbar, Box, IconButton } from "@mui/material";
 import styles from "../header/styles.module.css";
 import logo from "../../../assets/icons/logo.svg";
 import basketEmpty from "../../../assets/icons/basketEmpty.svg";
+import { useSelector } from "react-redux";
 
 function Header() {
   const linkClass = ({ isActive }) =>
     isActive ? `${styles.link} ${styles.active}` : styles.link;
+
+  const items = useSelector((state) => state.cart.items);
+  const count = items.reduce((sum, x) => sum + x.qty, 0);
 
   return (
     <AppBar position="static" color="transparent" elevation={0}>
@@ -31,6 +35,25 @@ function Header() {
           </Box>
           <IconButton component={NavLink} to="/cart">
             <img src={basketEmpty} alt="cart" />
+            {count > 0 && (
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: 0,
+                  right: 0,
+                  width: 20,
+                  height: 20,
+                  borderRadius: "50%",
+                  backgroundColor: "transparent",
+                  color: "red",
+                  fontSize: 20,
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                {count}
+              </Box>
+            )}
           </IconButton>
         </Box>
       </Toolbar>

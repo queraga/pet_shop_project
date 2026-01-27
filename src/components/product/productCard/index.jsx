@@ -2,11 +2,15 @@ import { Box, Typography, Button } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import styles from "../productCard/styles.module.css";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../../features/cart/cartSlice";
 
 const calcDiscountPercent = (price, discontPrice) =>
   Math.round(((price - discontPrice) / price) * 100);
 
 function ProductCard({ product }) {
+  const dispatch = useDispatch();
+
   const percent = calcDiscountPercent(product.price, product.discont_price);
 
   const [added, setAdded] = useState(false);
@@ -15,8 +19,7 @@ function ProductCard({ product }) {
   const handleAddToCart = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    if (added) return;
-
+    dispatch(addToCart(product));
     setAdded(true);
   };
 
