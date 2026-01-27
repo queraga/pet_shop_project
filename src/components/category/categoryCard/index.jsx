@@ -15,6 +15,7 @@ function CategoryCard({ id, title, image }) {
         sx={{
           mt: 2,
           fontSize: 20,
+          fontWeight: 500,
           color: "#282828",
         }}
       >

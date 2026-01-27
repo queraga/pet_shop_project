@@ -12,24 +12,25 @@ import DiscountedPage from "./pages/discountedPage";
 import ProductPage from "./pages/productPage";
 import CartPage from "./pages/cartPage";
 import NotFoundPage from "./pages/notFoundPage";
+import MainLayout from "./components/layout/mainLayout";
 
 function App() {
   return (
     <BrowserRouter>
-      <Header />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/categories" element={<CategoriesPage />} />
-        <Route path="/categories/:categoryId" element={<CategoryPage />} />
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/categories" element={<CategoriesPage />} />
+          <Route path="/categories/:categoryId" element={<CategoryPage />} />
 
-        <Route path="/products" element={<AllProductsPage />} />
-        <Route path="sales" element={<DiscountedPage />} />
-        <Route path="products/:productId" element={<ProductPage />} />
+          <Route path="/products" element={<AllProductsPage />} />
+          <Route path="/sales" element={<DiscountedPage />} />
+          <Route path="/products/:productId" element={<ProductPage />} />
+        </Route>
 
         <Route path="/cart" element={<CartPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-      <Footer />
     </BrowserRouter>
   );
 }
