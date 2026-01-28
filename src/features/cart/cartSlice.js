@@ -50,7 +50,6 @@ const cartSlice = createSlice({
 
     placeOrder: (state) => {
       state.orderPlaced = true;
-      state.items = [];
     },
 
     resetOrderPlaced: (state) => {

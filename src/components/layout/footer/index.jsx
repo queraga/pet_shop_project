@@ -22,7 +22,7 @@ function Footer() {
 
   return (
     <Box component="footer" className={styles.footer}>
-      <Container className={styles.container} maxWidth={false}>
+      <Container className={styles.container} maxWidth="xl" disableGutters>
         <Typography sx={sxTitle}>Contact</Typography>
         <Box className={styles.grid}>
           <Box className={styles.card}>

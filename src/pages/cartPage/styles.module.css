@@ -1,0 +1,153 @@
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(720px, 60%) minmax(480px, 40%);
+  gap: 32px;
+  align-items: start;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 24px;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.rowImg {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.rowInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.rowTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.removeBtn {
+  min-width: auto;
+  padding: 0;
+}
+.removeBtn:hover {
+  background-color: transparent;
+}
+
+.rowBottom {
+  display: flex;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.qty {
+  display: flex;
+  align-items: center;
+  border: 1px solid #dddddd;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.qtyBtn {
+  width: 58px;
+  height: 58px;
+  background: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qtyValue {
+  width: 96px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.prices {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.price {
+  font-size: 40px;
+  font-weight: 600;
+}
+
+.oldPrice {
+  font-size: 20px;
+  color: #8b8b8b;
+  text-decoration: line-through;
+}
+
+.right {
+  background: #f1f3f4;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.totalRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.totalLabel {
+  font-size: 40px;
+  color: #8b8b8b;
+  font-weight: 500;
+}
+
+.totalValue {
+  font-size: 64px;
+  font-weight: 700;
+}
+
+.orderBtn {
+  width: 100%;
+  height: 58px;
+  border-radius: 6px;
+  text-transform: none;
+}
+
+.headerLine {
+  flex: 1;
+  height: 1px;
+  background-color: #dddddd;
+  margin-left: 32px;
+}
