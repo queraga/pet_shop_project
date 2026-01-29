@@ -11,7 +11,7 @@ const calcDiscountPercent = (price, discontPrice) =>
 function ProductCard({ product }) {
   const dispatch = useDispatch();
 
-  const percent = calcDiscountPercent(product.price, product.discont_price);
+  // const percent = calcDiscountPercent(product.price, product.discont_price);
 
   const [added, setAdded] = useState(false);
   const [hovered, setHovered] = useState(false);
@@ -22,6 +22,16 @@ function ProductCard({ product }) {
     dispatch(addToCart(product));
     setAdded(true);
   };
+  const hasDiscount =
+    product.discont_price != null &&
+    Number(product.discont_price) > 0 &&
+    Number(product.price) > 0;
+
+  const currentPrice = hasDiscount ? product.discont_price : product.price;
+
+  const percent = hasDiscount
+    ? calcDiscountPercent(Number(product.price), Number(product.discont_price))
+    : null;
 
   return (
     <Box
@@ -37,7 +47,7 @@ function ProductCard({ product }) {
           alt={product.title}
           className={styles.img}
         />
-        <Box className={styles.badge}>-{percent}%</Box>
+        {percent != null && <Box className={styles.badge}>-{percent}%</Box>}
         {(hovered || added) && (
           <Button
             variant="contained"
@@ -57,7 +67,7 @@ function ProductCard({ product }) {
               color: added ? "#282828" : "#fff",
               border: added ? "2px solid #282828" : "none",
               "&:hover": {
-                backgroundColor: added ? "fff" : "#282828",
+                backgroundColor: added ? "#fff" : "#282828",
               },
             }}
           >
@@ -78,8 +88,10 @@ function ProductCard({ product }) {
         {product.title}
       </Typography>
       <Box className={styles.priceRow}>
-        <span className={styles.price}>${product.discont_price}</span>
-        <span className={styles.oldPrice}>${product.price}</span>
+        <span className={styles.price}>${currentPrice}</span>
+        {hasDiscount && (
+          <span className={styles.oldPrice}>${product.price}</span>
+        )}
       </Box>
     </Box>
   );

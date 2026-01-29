@@ -1,0 +1,49 @@
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 32px 40px 80px;
+}
+
+.breadcrumbs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.crumb,
+.crumbActive {
+  font-size: 12px;
+  padding: 6px 10px;
+  border: 1px solid #dddddd;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.crumb {
+  color: #8b8b8b;
+}
+
+.crumbActive {
+  color: #282828;
+  font-weight: 600;
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.priceBlock,
+.sortBlock {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
