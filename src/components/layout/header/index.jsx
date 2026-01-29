@@ -4,6 +4,7 @@ import styles from "../header/styles.module.css";
 import logo from "../../../assets/icons/logo.svg";
 import basketEmpty from "../../../assets/icons/basketEmpty.svg";
 import { useSelector } from "react-redux";
+import Badge from "@mui/material/Badge";
 
 function Header() {
   const linkClass = ({ isActive }) =>
@@ -33,9 +34,34 @@ function Header() {
               All sales
             </NavLink>
           </Box>
-          <IconButton component={NavLink} to="/cart">
-            <img src={basketEmpty} alt="cart" />
-            {count > 0 && (
+
+          <IconButton
+            component={NavLink}
+            to="/cart"
+            disableRipple
+            sx={{ "&:hover": { backgroundColor: "transparent" } }}
+          >
+            <Badge
+              badgeContent={count}
+              invisible={count === 0}
+              overlap="circular"
+              sx={{
+                "& .MuiBadge-badge": {
+                  backgroundColor: "#0D50FF",
+                  color: "#fff",
+                  width: 26,
+                  height: 26,
+                  borderRadius: "50%",
+                  fontSize: 12,
+                  fontWeight: 700,
+                  top: 18,
+                  left: -16,
+                },
+              }}
+            >
+              <img src={basketEmpty} alt="cart" />
+            </Badge>
+            {/* {count > 0 && (
               <Box
                 sx={{
                   position: "absolute",
@@ -53,7 +79,8 @@ function Header() {
               >
                 {count}
               </Box>
-            )}
+              
+            )} */}
           </IconButton>
         </Box>
       </Toolbar>
