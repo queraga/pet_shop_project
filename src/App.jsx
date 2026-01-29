@@ -1,9 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Header from "./components/layout/header";
-import Footer from "./components/layout/footer";
-
 import HomePage from "./pages/homePage";
 import CategoriesPage from "./pages/categoriesPage";
 import CategoryPage from "./pages/categoryPage";
