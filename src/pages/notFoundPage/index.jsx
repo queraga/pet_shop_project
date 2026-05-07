@@ -1,7 +1,7 @@
 import { Box, Typography, Button } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import styles from "./styles.module.css";
-import errorMessage from "../../assets/images/errorMessage.svg";
+import errorMessage from "../../shared/assets/images/errorMessage.svg";
 
 function NotFoundPage() {
   return (

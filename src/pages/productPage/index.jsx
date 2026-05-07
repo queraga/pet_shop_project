@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Box, Typography, Button } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../features/cart/cartSlice";
-import { getProductById } from "../../api/endpoints";
+import { addToCart } from "../../entities/cart/model/cartSlice";
+import { getProductById } from "../../shared/api/endpoints";
 import styles from "../productPage/styles.module.css";
 import { NavLink } from "react-router-dom";
 

@@ -3,9 +3,9 @@ import "./index.css";
 import App from "./App.jsx";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import theme from "./theme.js";
+import theme from "./app/providers/theme.js";
 import { Provider } from "react-redux";
-import store from "../src/store.js";
+import store from "./app/providers/store.js";
 
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>

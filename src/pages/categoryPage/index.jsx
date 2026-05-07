@@ -11,8 +11,8 @@ import {
   MenuItem,
 } from "@mui/material";
 
-import { getCategories, getProducts } from "../../api/endpoints";
-import ProductCard from "../../components/product/productCard/index";
+import { getCategories, getProducts } from "../../shared/api/endpoints";
+import ProductCard from "../../entities/product/ui/productCard";
 import styles from "../categoryPage/styles.module.css";
 
 function CategoryPage() {

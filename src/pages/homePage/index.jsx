@@ -2,15 +2,15 @@ import { Box, Button, Container, Typography, TextField } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import styles from "../../pages/homePage/styles.module.css";
 import { useEffect, useState } from "react";
-import { getCategories } from "../../api/endpoints";
+import { getCategories } from "../../shared/api/endpoints";
 import { useForm } from "react-hook-form";
-import saleBackgroundImg from "../../assets/images/saleBackgroundImg.svg";
-import { pickRandom } from "../../utils/random";
-import { getProducts } from "../../api/endpoints";
+import saleBackgroundImg from "../../shared/assets/images/saleBackgroundImg.svg";
+import { pickRandom } from "../../shared/utils/random";
+import { getProducts } from "../../shared/api/endpoints";
 
-import heroBanner from "../../assets/images/heroBanner.svg";
-import CategoryCard from "../../components/category/categoryCard";
-import ProductCard from "../../components/product/productCard";
+import heroBanner from "../../shared/assets/images/heroBanner.svg";
+import CategoryCard from "../../entities/category/ui/categoryCard";
+import ProductCard from "../../entities/product/ui/productCard";
 
 // form adjustments material UI
 const promoInputSx = {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
-import { getCategories } from "../../api/endpoints";
-import CategoryCard from "../../components/category/categoryCard/index";
+import { getCategories } from "../../shared/api/endpoints";
+import CategoryCard from "../../entities/category/ui/categoryCard";
 import styles from "../categoriesPage/styles.module.css";
 
 function CategoriesPage() {

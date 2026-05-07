@@ -2,26 +2,17 @@ import { Box, Typography, Button } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import styles from "../productCard/styles.module.css";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../../../features/cart/cartSlice";
+import AddToCartButton from "../../../../features/cart/addToCart/ui/AddToCartButton";
 
 const calcDiscountPercent = (price, discontPrice) =>
   Math.round(((price - discontPrice) / price) * 100);
 
 function ProductCard({ product }) {
-  const dispatch = useDispatch();
-
   // const percent = calcDiscountPercent(product.price, product.discont_price);
 
   const [added, setAdded] = useState(false);
   const [hovered, setHovered] = useState(false);
 
-  const handleAddToCart = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    dispatch(addToCart(product));
-    setAdded(true);
-  };
   const hasDiscount =
     product.discont_price != null &&
     Number(product.discont_price) > 0 &&
@@ -49,30 +40,11 @@ function ProductCard({ product }) {
         />
         {percent != null && <Box className={styles.badge}>-{percent}%</Box>}
         {(hovered || added) && (
-          <Button
-            variant="contained"
-            onClick={handleAddToCart}
-            sx={{
-              position: "absolute",
-              bottom: 12,
-              left: "50%",
-              transform: "translateX(-50%)",
-              width: 282,
-              height: 58,
-              borderRadius: "6px",
-              textTransform: "none",
-              fontSize: "20px",
-              fontWeight: 600,
-              backgroundColor: added ? "#fff" : "#0D50FF",
-              color: added ? "#282828" : "#fff",
-              border: added ? "2px solid #282828" : "none",
-              "&:hover": {
-                backgroundColor: added ? "#fff" : "#282828",
-              },
-            }}
-          >
-            {added ? "Added" : "Add to Cart"}
-          </Button>
+          <AddToCartButton
+            product={product}
+            added={added}
+            onAdded={() => setAdded(true)}
+          />
         )}
       </Box>
 

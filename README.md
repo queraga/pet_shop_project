@@ -1,4 +1,4 @@
-# Pet Shop (React + Redux Toolkit)
+# Pet Shop (React + RTK + FSD)
 
 Pet Shop is a small e-commerce frontend project built with React.  
 It includes product catalog pages, filters, product details, shopping cart flow and an order confirmation modal.
@@ -28,29 +28,56 @@ It includes product catalog pages, filters, product details, shopping cart flow 
   - Order confirmation modal
 - 404 Not Found page
 
-## Project Structure (src)
+## Project Structure (FSD, src)
 
-- `api/` - axios client + endpoints
-- `assets/` - icons and images
-- `components/`
-  - `layout/` - Header / Footer / MainLayout
-  - `category/` - CategoryCard
-  - `product/` - ProductCard
-- `features/cart/` - cartSlice (Redux Toolkit)
-- `pages/` - app pages
-- `utils/` - helpers (random, etc.)
+- `app/`
+  - `providers/` - app-level providers (store, theme)
+
+- `entities/`
+  - `cart/` - cart model (slice, selectors)
+
+  - `product/` - product UI (ProductCard)
+
+  - `category/` - category UI (CategoryCard)
+
+- `features/`
+  - `cart/` - user actions (add to cart, increment/decrement qty, remove item)
+
+- `widgets/`
+  - `header/`, `footer/`, `mainLayout/` - layout blocks
+
+- `pages/` - app pages (home, products, cart, etc.)
+
+- `shared/`
+  - `api/` - axios client + endpoints
+
+  - `assets/` - icons and images
+
+  - `utils/` - helpers
 
 ## Setup
 
 ### 1) Install dependencies
 
-```
-bash
-npm install
-cd server
-npm install
-npm run dev
+```bash
 
+npm install
+```
+
+## Run client
+
+```
+npm run dev
+```
+
+## Run server (API)
+
+```
+cd server
+
+npm install
+
+npm run dev
 ```
 
 ### Server runs on: http://localhost:3333
@@ -61,3 +88,11 @@ npm run dev
 
     •	Cart is stored in localStorage (persists after refresh).
     •	Order action is simulated locally (no real order submission required).
+
+```
+
+```
+
+```
+
+```

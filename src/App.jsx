@@ -9,7 +9,7 @@ import DiscountedPage from "./pages/discountedPage";
 import ProductPage from "./pages/productPage";
 import CartPage from "./pages/cartPage";
 import NotFoundPage from "./pages/notFoundPage";
-import MainLayout from "./components/layout/mainLayout";
+import MainLayout from "./widgets/mainLayout";
 
 function App() {
   return (

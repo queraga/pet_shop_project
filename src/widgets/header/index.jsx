@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
 import { AppBar, Toolbar, Box, IconButton } from "@mui/material";
-import styles from "../header/styles.module.css";
-import logo from "../../../assets/icons/logo.svg";
-import basketEmpty from "../../../assets/icons/basketEmpty.svg";
+import styles from "./styles.module.css";
+import logo from "../../shared/assets/icons/logo.svg";
+import basketEmpty from "../../shared/assets/icons/basketEmpty.svg";
 import { useSelector } from "react-redux";
 import Badge from "@mui/material/Badge";
 

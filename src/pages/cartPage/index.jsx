@@ -1,21 +1,26 @@
 import { Box, Typography, Button, Dialog, IconButton } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  incrementQty,
-  decrementQty,
-  removeFromCart,
   placeOrder,
   resetOrderPlaced,
   clearCart,
-} from "../../features/cart/cartSlice";
+} from "../../entities/cart/model/cartSlice";
 import styles from "../cartPage/styles.module.css";
-import minus from "../../assets/icons/minus.svg";
-import plus from "../../assets/icons/plus.svg";
-import closeIcon from "../../assets/icons/closeIcon.svg";
+import minus from "../../shared/assets/icons/minus.svg";
+import plus from "../../shared/assets/icons/plus.svg";
+import closeIcon from "../../shared/assets/icons/closeIcon.svg";
 import { useForm } from "react-hook-form";
 import { TextField } from "@mui/material";
 import { NavLink } from "react-router-dom";
-import whiteCloseBtn from "../../assets/icons/whiteCloseBtn.svg";
+import whiteCloseBtn from "../../shared/assets/icons/whiteCloseBtn.svg";
+import {
+  selectCartItems,
+  selectCartCount,
+  selectCartTotal,
+} from "../../entities/cart/model/selectors";
+import RemoveFromCartButton from "../../features/cart/removeFromCart/ui/RemoveFromCartButton";
+import IncrementQtyButton from "../../features/cart/incrementQty/ui/IncrementQtyButton";
+import DecrementQtyButton from "../../features/cart/decrementQty/ui/DecrementAtyButton";
 
 function CartPage() {
   const dispatch = useDispatch();
@@ -41,13 +46,9 @@ function CartPage() {
     dispatch(resetOrderPlaced());
   };
 
-  const items = useSelector((state) => state.cart.items);
-
-  const itemsCount = items.reduce((sum, x) => sum + x.qty, 0);
-  const total = items.reduce((sum, x) => {
-    const price = x.discont_price ?? x.price;
-    return sum + price * x.qty;
-  }, 0);
+  const items = useSelector(selectCartItems);
+  const itemsCount = useSelector(selectCartCount);
+  const total = useSelector(selectCartTotal);
 
   if (items.length === 0) {
     return (
@@ -165,29 +166,30 @@ function CartPage() {
                       {item.title}
                     </Typography>
 
-                    <Button
+                    <RemoveFromCartButton
+                      id={item.id}
                       className={styles.removeBtn}
-                      onClick={() => dispatch(removeFromCart(item.id))}
                     >
                       <img src={closeIcon} alt="Close" />
-                    </Button>
+                    </RemoveFromCartButton>
                   </Box>
                   <Box className={styles.rowBottom}>
                     <Box className={styles.controls}>
                       <Box className={styles.qty}>
-                        <button
+                        <DecrementQtyButton
+                          id={item.id}
                           className={styles.qtyBtn}
-                          onClick={() => dispatch(decrementQty(item.id))}
                         >
                           <img src={minus} alt="decrease" />
-                        </button>
+                        </DecrementQtyButton>
+
                         <span className={styles.qtyValue}>{item.qty}</span>
-                        <button
+                        <IncrementQtyButton
+                          id={item.id}
                           className={styles.qtyBtn}
-                          onClick={() => dispatch(incrementQty(item.id))}
                         >
                           <img src={plus} alt="increase" />
-                        </button>
+                        </IncrementQtyButton>
                       </Box>
 
                       <Box className={styles.prices}>

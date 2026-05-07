@@ -1,9 +1,9 @@
 import { Box, Container, Typography } from "@mui/material";
 import styles from "../footer/styles.module.css";
 
-import map from "../../../assets/images/map.svg";
-import insta from "../../../assets/icons/insta.svg";
-import whatsapp from "../../../assets/icons/whatsapp.svg";
+import map from "../../shared/assets/images/map.svg";
+import insta from "../../shared/assets/icons/insta.svg";
+import whatsapp from "../../shared/assets/icons/whatsapp.svg";
 
 function Footer() {
   const sxTitle = {
