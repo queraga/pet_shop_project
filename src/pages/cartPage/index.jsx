@@ -326,7 +326,7 @@ function CartPage() {
             <Button
               type="submit"
               variant="contained"
-              disabled={orderPlaced}
+              disabled={orderPlaced || !isValid}
               sx={{
                 textTransform: "none",
                 width: "100%",
