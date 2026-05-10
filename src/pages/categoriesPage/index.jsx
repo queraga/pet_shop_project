@@ -3,6 +3,7 @@ import { Box, Typography } from "@mui/material";
 import { getCategories } from "../../shared/api/endpoints";
 import CategoryCard from "../../entities/category/ui/categoryCard";
 import styles from "../categoriesPage/styles.module.css";
+import { NavLink } from "react-router-dom";
 
 function CategoriesPage() {
   const [categories, setCategories] = useState([]);
@@ -16,7 +17,9 @@ function CategoriesPage() {
     <Box className={styles.page}>
       <Box className={styles.container}>
         <Box className={styles.breadcrumbs}>
-          <span className={styles.crumb}>Main Page</span>
+          <NavLink to="/" className={styles.crumb}>
+            Main Page
+          </NavLink>
           <span className={styles.crumbActive}>Categories</span>
         </Box>
         <Typography

@@ -1,17 +1,11 @@
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import App from "./App.jsx";
-import { ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-import theme from "./app/providers/theme.js";
-import { Provider } from "react-redux";
-import store from "./app/providers/store.js";
+import App from "../src/app/App.jsx";
+
+import AppProvider from "./app/providers/AppProviders.jsx";
 
 createRoot(document.getElementById("root")).render(
-  <Provider store={store}>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <App />
-    </ThemeProvider>
-  </Provider>,
+  <AppProvider>
+    <App />
+  </AppProvider>,
 );

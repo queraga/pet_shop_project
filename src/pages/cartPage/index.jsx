@@ -21,6 +21,7 @@ import {
 import RemoveFromCartButton from "../../features/cart/removeFromCart/ui/RemoveFromCartButton";
 import IncrementQtyButton from "../../features/cart/incrementQty/ui/IncrementQtyButton";
 import DecrementQtyButton from "../../features/cart/decrementQty/ui/DecrementAtyButton";
+import { postOrder } from "../../shared/api/endpoints";
 
 function CartPage() {
   const dispatch = useDispatch();
@@ -31,14 +32,29 @@ function CartPage() {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({
+    mode: "onChange",
     defaultValues: { name: "", phone: "", email: "" },
   });
 
-  const onSubmit = () => {
-    dispatch(placeOrder());
-    reset();
+  // const onSubmit = () => {
+  //   dispatch(placeOrder());
+  //   reset();
+  // };
+
+  const onSubmit = async (formData) => {
+    try {
+      await postOrder({
+        ...formData,
+        items,
+        total,
+      });
+      dispatch(placeOrder());
+      reset();
+    } catch (err) {
+      console.log("order error", err);
+    }
   };
 
   const handleClose = () => {
@@ -250,7 +266,10 @@ function CartPage() {
             <TextField
               placeholder="Name"
               fullWidth
-              {...register("name", { required: "Name is required" })}
+              {...register("name", {
+                required: "Name is required",
+                minLength: { value: 2, message: "Min 2 symbols" },
+              })}
               error={!!errors.name}
               helperText={errors.name?.message}
               sx={{
@@ -266,7 +285,10 @@ function CartPage() {
             <TextField
               placeholder="Phone number"
               fullWidth
-              {...register("phone", { required: "Phone is required" })}
+              {...register("phone", {
+                required: "Phone is required",
+                pattern: { value: /^\+?\d{7,15}$/, message: "Invalid phone" },
+              })}
               error={!!errors.phone}
               helperText={errors.phone?.message}
               sx={{

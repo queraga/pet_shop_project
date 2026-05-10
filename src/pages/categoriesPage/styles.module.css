@@ -17,6 +17,7 @@
   border: 1px solid #dddddd;
   border-radius: 6px;
   color: #8b8b8b;
+  text-decoration: none;
 }
 
 .crumbActive {

@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { Box, Typography, Button } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../entities/cart/model/cartSlice";
-import { getProductById } from "../../shared/api/endpoints";
+import { getProductById, getCategories } from "../../shared/api/endpoints";
 import styles from "../productPage/styles.module.css";
 import { NavLink } from "react-router-dom";
 
@@ -15,6 +15,7 @@ function ProductPage() {
   const dispatch = useDispatch();
 
   const [product, setProduct] = useState(null);
+  const [categoryTitle, setCategoryTitle] = useState("");
 
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
@@ -33,12 +34,35 @@ function ProductPage() {
   useEffect(() => {
     getProductById(productId)
       .then((res) => {
-        setProduct(res.data?.[0] ?? null);
+        const prod = res.data?.[0] ?? null;
+        setProduct(prod);
         setQty(1);
         setAdded(false);
+        setCategoryTitle("");
+
+        if (!prod?.categoryId) return;
+
+        getCategories()
+          .then((catsRes) => {
+            const cat = catsRes.data?.find(
+              (c) => String(c.id) === String(prod.categoryId),
+            );
+            setCategoryTitle(cat?.title ?? "");
+          })
+          .catch((err) => console.log("categories error:", err));
       })
       .catch((err) => console.log("product error:", err));
   }, [productId]);
+
+  // useEffect(() => {
+  //   getProductById(productId)
+  //     .then((res) => {
+  //       setProduct(res.data?.[0] ?? null);
+  //       setQty(1);
+  //       setAdded(false);
+  //     })
+  //     .catch((err) => console.log("product error:", err));
+  // }, [productId]);
 
   if (!product) return null;
 
@@ -56,26 +80,24 @@ function ProductPage() {
   return (
     <Box className={styles.container}>
       <Box className={styles.breadcrumbs}>
-        <Box className={styles.breadcrumbs}>
-          <NavLink to="/" className={styles.crumb}>
-            Main page
-          </NavLink>
+        <NavLink to="/" className={styles.crumb}>
+          Main page
+        </NavLink>
 
-          <NavLink to="/categories" className={styles.crumb}>
-            Categories
-          </NavLink>
+        <NavLink to="/categories" className={styles.crumb}>
+          Categories
+        </NavLink>
 
-          <NavLink
-            to={`/categories/${product.categoryId}`}
-            className={styles.crumb}
-          >
-            Dry & Wet Food
-          </NavLink>
+        <NavLink
+          to={`/categories/${product.categoryId}`}
+          className={styles.crumb}
+        >
+          {categoryTitle || "Category"}
+        </NavLink>
 
-          <span className={styles.crumbActive}>
-            {product.title.split(" ").slice(0, 2).join(" ")}
-          </span>
-        </Box>
+        <span className={styles.crumbActive}>
+          {product.title.split(" ").slice(0, 2).join(" ")}
+        </span>
       </Box>
 
       <Box className={styles.layout}>
